@@ -33,3 +33,4 @@ just run make setup once, make watch and just start coding.
 	- logging system
 	- alerting system
 	- admin dashboard
+	- user auth system
