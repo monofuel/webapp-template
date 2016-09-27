@@ -17,7 +17,7 @@ func randomHandler(w http.ResponseWriter, r *http.Request) *AppError {
 
 	js, err := json.Marshal(map[string]int{"result": rand.Int()})
 	if err != nil {
-		return &AppError{err, "failed to marshal json", 500}
+		return NewAppError(err, "failed to marshal json", 500)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(js)

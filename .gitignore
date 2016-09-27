@@ -3,3 +3,4 @@ webapp-template
 gin-bin
 
 node_modules
+coverage.out

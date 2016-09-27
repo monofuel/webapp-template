@@ -23,6 +23,10 @@ setup:
 	npm install
 
 test:
-	#go vet .
+	go tool vet ./
 	go test
 	flow check
+
+cover:
+	go test -coverprofile=coverage.out
+	go tool cover  -html=coverage.out

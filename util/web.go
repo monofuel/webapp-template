@@ -15,6 +15,14 @@ type AppError struct {
 	Code    int
 }
 
+func NewAppError(err error, message string, code int) *AppError {
+	return &AppError{
+		Error:   err,
+		Message: message,
+		Code:    code,
+	}
+}
+
 func (fn AppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var errorResponse struct {
 		Err     error  `json:"err"`

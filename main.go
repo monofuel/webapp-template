@@ -51,7 +51,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) *AppError {
 
 	err := templates.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
-		return &AppError{err, "failed to load index.html", 500}
+		return NewAppError(err, "failed to load index.html", 500)
 	}
 	return nil
 }
