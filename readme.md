@@ -26,3 +26,12 @@ just run make setup once, make watch and just start coding.
 - `test` check/test frontend and backend
 
 ![alt text](screenshots/index.png "screenshots rock")
+
+## TODO
+- document all functions
+- better test coverage
+- dockerfile for building and running
+- add database examples
+	- logging system
+	- alerting system
+	- admin dashboard
