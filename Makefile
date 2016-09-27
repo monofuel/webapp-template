@@ -18,11 +18,13 @@ watchClient:
 
 setup:
 	go get github.com/codegangsta/gin
+	go get github.com/golang/lint/golint
 	go get
 	rm -r ./node_modules
 	npm install
 
 test:
+	golint ./...
 	go tool vet ./
 	go test
 	flow check

@@ -7,14 +7,17 @@ import (
 	"strconv"
 )
 
+//AppHandler is a wrapper around api requests that returns an AppError
 type AppHandler func(http.ResponseWriter, *http.Request) *AppError
 
+//AppError is a wrapper around useful information to return in an error
 type AppError struct {
 	Error   error
 	Message string
 	Code    int
 }
 
+//NewAppError returns a shiny new AppError
 func NewAppError(err error, message string, code int) *AppError {
 	return &AppError{
 		Error:   err,
@@ -23,6 +26,7 @@ func NewAppError(err error, message string, code int) *AppError {
 	}
 }
 
+//ServeHTTP implements the http handler for AppHandlers
 func (fn AppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var errorResponse struct {
 		Err     error  `json:"err"`
@@ -40,6 +44,7 @@ func (fn AppHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//GetPageLimitParameters is a handy function to get the page and limit parameters
 func GetPageLimitParameters(r *http.Request) (int, int, error) {
 	pageParam := r.URL.Query().Get("page")
 	limitParam := r.URL.Query().Get("limit")

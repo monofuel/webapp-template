@@ -11,7 +11,7 @@ import (
 )
 
 var host string
-var client *http.Client = &http.Client{}
+var client = &http.Client{}
 
 func TestIndex(t *testing.T) {
 	go main()

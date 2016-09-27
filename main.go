@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/monofuel/webapp-template/api"
-	. "github.com/monofuel/webapp-template/util"
+	"github.com/monofuel/webapp-template/util"
 )
 
 var webPort = os.Getenv("PORT")
@@ -35,7 +35,7 @@ func registerHandlers() {
 
 	r := mux.NewRouter()
 
-	r.Methods("GET").Path("/").Handler(AppHandler(rootHandler))
+	r.Methods("GET").Path("/").Handler(util.AppHandler(rootHandler))
 
 	jsFs := http.FileServer(http.Dir("public/js"))
 	cssFs := http.FileServer(http.Dir("public/css"))
@@ -47,11 +47,11 @@ func registerHandlers() {
 	http.Handle("/", handlers.CombinedLoggingHandler(os.Stderr, r))
 }
 
-func rootHandler(w http.ResponseWriter, r *http.Request) *AppError {
+func rootHandler(w http.ResponseWriter, r *http.Request) *util.AppError {
 
 	err := templates.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
-		return NewAppError(err, "failed to load index.html", 500)
+		return util.NewAppError(err, "failed to load index.html", 500)
 	}
 	return nil
 }
