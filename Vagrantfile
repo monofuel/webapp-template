@@ -9,10 +9,15 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
   cd /vagrant/mono-scripts/setup/
   export MONO_USER='vagrant'
+  export GO_PACKAGES="github.com/codegangsta/gin"
   bash golang.bash
   bash nodejs.bash
+  chown -R vagrant.vagrant /home/vagrant
+  source /home/vagrant/.profile
 
-  ln -s /home/vagrant/go/src/github.com/monofuel/webapp-template /vagrant
+  mkdir -p /home/vagrant/go/src/github.com/monofuel/
+
+  ln -s /vagrant /home/vagrant/go/src/github.com/monofuel/webapp-template
   cd /home/vagrant/go/src/github.com/monofuel/webapp-template
   make setup
 

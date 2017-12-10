@@ -4,3 +4,4 @@ gin-bin
 
 node_modules
 coverage.out
+.vagrant
