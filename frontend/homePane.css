@@ -1,0 +1,6 @@
+
+.paper-pane {
+    display: flex;
+    flex: 1;
+    margin: 40px;
+}

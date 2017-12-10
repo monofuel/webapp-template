@@ -1,0 +1,46 @@
+version: '2'
+services:
+  app:
+    build:
+      context: .
+    volumes:
+    - ./:/home/webapp/go/src/github.com/monofuel/webapp-template/
+    ports:
+    - "8085:8085"
+    environment:
+      - HTTP_PORT=8080
+      - SQL_HOST=db
+      - AMQP_HOST=rabbitmq
+  client-build:
+    build:
+      context: .
+    command: make buildClient
+    volumes:
+    - ./:/home/webapp/go/src/github.com/monofuel/webapp-template/
+  db:
+    image: postgres
+    volumes:
+    - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: testing
+      POSTGRES_PASSWORD: testing
+    ports:
+      - "5432:5432"
+  adminer:
+    image: adminer
+    ports:
+    - "8080:8080"
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+    - "5672:5672"
+    - "8087:15672"
+  migrate:
+    image: postgres
+    command:  psql -a -f /scripts/setup.sql
+    volumes:
+    - ./sql:/scripts
+    environment:
+      PGHOST: db
+      PGUSER: testing
+      PGPASSWORD: testing
